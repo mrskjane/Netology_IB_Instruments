@@ -1,29 +1,38 @@
 //
 //  ProfileViewController.swift
-//  Netology_IB_Instruments_last
+//  Netology_IB_Instruments
 //
-//  Created by Евгения Панфилова on 13.11.2025.
+//  Created by Евгения Панфилова on 12.11.2025.
 //
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Загружаем ProfileView из XIB и добавляем как подвид
+        let profileView = Bundle.main.loadNibNamed("ProfileView", owner: self)?.first as! ProfileView
+
+        // Настройка масштабирования
+        profileView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(profileView)
+        
+        // Закрепляем по всем краям с учётом safe area
+        NSLayoutConstraint.activate([
+            profileView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            profileView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            profileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            profileView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        // Установка данных
+        profileView.avatarImage.image = UIImage(named: "avatar")
+        profileView.avatarImage.contentMode = .scaleToFill
+        profileView.labelName.text = "Евгения Панфилова"
+        profileView.labelBirth.text = "10 декабря 1985"
+        profileView.labelCity.text = "Волгоград"
+        profileView.textView.text = "Люблю путешествовать, читать и изучать новые языки."
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
